@@ -10,9 +10,12 @@
     group: "{{ oracle_group }}"
 
 - name: SI | check for conflicts
-  shell: "opatch prereq CheckConflictAgainstOHWithDetail -phBaseDir {{ patch_directory }}/{{ quarterly_patches[patch_type][oracle_version][patch_name].si_patchid }}"
+  shell: "opatch prereq {{ item }} -phBaseDir {{ patch_directory }}/{{ quarterly_patches[patch_type][oracle_version][patch_name].si_patchid }}"
   environment: "{{ env }}"
   register: opatch_conflicts
+  with_items:
+         - CheckConflictAgainstOHWithDetail
+         - CheckSystemSpace
 
 - debug: var=opatch_conflicts.stdout_lines
 
@@ -33,7 +36,7 @@
   ignore_errors: true
 
 - name: SI | opatch apply
-  shell: "opatch apply -silent -force -ocmrf {{ oracle_stage_install }}/ocm.rsp {{ patch_directory }}/{{ quarterly_patches[patch_type][oracle_version][patch_name].si_patchid }}"
+  shell: "{{ oracle_home }}/OPatch/opatch apply -silent -force -ocmrf {{ oracle_home }}/OPatch/ocm/bin/ocm.rsp {{ patch_directory }}/{{ quarterly_patches[patch_type][oracle_version][patch_name].si_patchid }}"
   environment: "{{ env }}"
   register: opatch_apply
 
