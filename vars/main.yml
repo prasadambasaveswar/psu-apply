@@ -1,0 +1,115 @@
+---
+env:
+  ORACLE_HOME: "{{ oracle_home }}"
+  ORACLE_BASE: "{{ oracle_base }}"
+  TNS_ADMIN: "{{ tns_admin }}"
+  PATH: "{{ oracle_home }}/bin:{{ oracle_home }}/OPatch:$PATH:/bin:/usr/bin::/usr/ccs/bin"
+
+# Latest opatch versions and files.
+# Files should exist in path defined by oracle_stage_install.
+opatch:
+  12.2.0.1:
+    version: 12.2.0.1.9
+    filename: p6880880_122010_Linux-x86-64.zip
+  12.1.0.2:
+    version: 12.2.0.1.9
+    filename: p6880880_122010_Linux-x86-64.zip
+  11.2.0.4:
+    version: 11.2.0.3.12
+    filename: p6880880_112000_Linux-x86-64.zip
+
+quarterly_patches:
+  # Release Update Patch for 12.2
+  ru:
+    12.2.0.1:
+      JUL2017:
+        patchversion: 12.2.0.1.170718
+        filename: p26133434_122010_Linux-x86-64.zip
+        patchid: 26133434
+        si_patchid: 26123830
+
+  # Database Proactive Patch for 12.1
+  dbbp:
+    12.1.0.2:
+      JUL2017:
+        patchversion: 12.1.0.2.170718
+        filename: p26022196_121020_Linux-x86-64.zip
+        patchid: 26022196
+        si_patchid: 25869760
+      APR2017:
+        patchversion: 12.1.0.2.170418
+        filename: p25433352_121020_Linux-x86-64.zip
+        patchid: 25433352
+        si_patchid: 25397136
+      JUL2016:
+        patchversion: 12.1.0.2.160719
+        filename: p23273686_121020_Linux-x86-64.zip
+        patchid: 23273686
+        si_patchid: 23144544
+      APR2016:
+        patchversion: 12.1.0.2.160419
+        filename: p22899531_121020_Linux-x86-64.zip
+        patchid: 22899531
+        si_patchid: 22806133
+
+  # PSU information for RAC and Single Instance (11.2 and 12.1)
+  psu:
+    11.2.0.4:
+      JUL2017:
+        patchversion: 11.2.0.4.170718
+        filename: p26030799_112040_Linux-x86-64.zip
+        patchid: 26030799
+        si_patchid: 25869727
+
+oneoff_patches:
+  # 12.1.0.2:
+    # - patchid: 21091518   # Avoid Poor Performance or Wrong Results on 12.1.0.2 (Doc ID 2034610.1)
+    #   filename: p21091518_121020_Linux-x86-64.zip
+    # - patchid: 20879889   # Avoid Poor Performance or Wrong Results on 12.1.0.2 (Doc ID 2034610.1)
+    #   filename: p20879889_121020_Linux-x86-64.zip
+
+#PSU version specific patches
+  # 12.1.0.2.160419:
+    # - patchid: 21091518   # Avoid Poor Performance or Wrong Results on 12.1.0.2 (Doc ID 2034610.1)
+    #   filename: p21091518_121020_Linux-x86-64.zip
+    # - patchid: 20807398   # Avoid Poor Performance or Wrong Results on 12.1.0.2 (Doc ID 2034610.1)
+    #   filename: p20807398_12102160419_Linux-x86-64.zip
+
+
+  12.1.0.2.160119:
+    - patchid: 21091518   # Avoid Poor Performance or Wrong Results on 12.1.0.2 (Doc ID 2034610.1)
+      filename: p21091518_121020_Linux-x86-64.zip
+    - patchid: 20879889   # Avoid Poor Performance or Wrong Results on 12.1.0.2 (Doc ID 2034610.1)
+      filename: p20879889_121020_Linux-x86-64.zip
+    - patchid: 13542050   # Avoid Poor Performance or Wrong Results on 12.1.0.2 (Doc ID 2034610.1)
+      filename: p13542050_121024_Linux-x86-64.zip
+    - patchid: 21869620   # Merge request for bugs 19509982 20807398
+      filename: p21869620_121025_Linux-x86-64.zip
+    - patchid: 22965605   # MERGE REQUEST ON TOP OF DATABASE PSU 12.1.0.2.5 FOR BUGS 21869620 18302923
+      filename: p22965605_121025_Linux-x86-64.zip
+
+
+  12.1.0.2.5:
+    - patchid: 21091518   # Avoid Poor Performance or Wrong Results on 12.1.0.2 (Doc ID 2034610.1)
+      filename: p21091518_121020_Linux-x86-64.zip
+    - patchid: 20879889   # Avoid Poor Performance or Wrong Results on 12.1.0.2 (Doc ID 2034610.1)
+      filename: p20879889_121020_Linux-x86-64.zip
+    - patchid: 13542050   # Avoid Poor Performance or Wrong Results on 12.1.0.2 (Doc ID 2034610.1)
+      filename: p13542050_121024_Linux-x86-64.zip
+    - patchid: 21869620   # Merge request for bugs 19509982 20807398
+      filename: p21869620_121025_Linux-x86-64.zip
+
+  12.1.0.2.4:
+    - patchid: 13542050   # Avoid Poor Performance or Wrong Results on 12.1.0.2 (Doc ID 2034610.1)
+      filename: p13542050_121024_Linux-x86-64.zip
+    - patchid: 21800251 # only needed up to version 12.1.0.2.4
+      filename: p21800251_121020_Linux-x86-64.zip
+    - patchid: 21821738 #Merge request for bugs 21821738 18485835
+      filename: p21821738_121020_Linux-x86-64.zip
+
+  11.2.0.4.8:
+    - patchid: 17890099 # ORA-2072 AND ORA-2063 ON QUERY VIA DBLINK
+      filename: p17890099_112048_Linux-x86-64.zip
+  11.2.0.4.7:
+    - patchid: 17890099 # ORA-2072 AND ORA-2063 ON QUERY VIA DBLINK
+      filename: p17890099_112047_Linux-x86-64.zip
